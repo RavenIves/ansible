@@ -1,0 +1,18 @@
+- hosts: server1
+  remote_user: root
+  #key_file: "{{ /Users/srangelov/.ssh/key1.pub }}"
+  become: yes #this escalates priviledges 
+  tasks:
+  - name: install Py
+    command: apt -y install python3
+  - name: create regular remote_user
+    command: useradd raven
+  - name: install docker
+    apt: 
+      name: docker
+      state: installed  
+  - name: create hell.py
+    command: echo 'print "This is a file named hell"' > hell.py 
+  - name: call forth hell
+    command: python hell.py > output.txt
+  #- name: install  
